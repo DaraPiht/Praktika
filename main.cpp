@@ -1,6 +1,9 @@
 #include <iostream>
 
 using namespace std;
+
+int n_exits = 0;
+
 string maze[25] = {
 "####B######################",
 "# #       #   #      #    #",
@@ -31,10 +34,12 @@ string maze[25] = {
 
 void shag(int x,int y){
   if((x<0)||(x>26)||(y<0)||(y>24)||maze[y][x]=='#')
-          return ;
-    if((maze[y][x]!=' ') &&(maze[y][x]!='#') )
-       cout <<maze[y][x]<<endl;
-          maze[y][x]='#';
+    return ;
+      if((maze[y][x]!=' ') &&(maze[y][x]!='#') ){
+        cout <<maze[y][x]<<endl;
+        n_exits++;
+    }
+       maze[y][x]='#';
     shag(x-1,y);
     shag(x+1,y);
     shag(x,y-1);
@@ -44,5 +49,16 @@ void shag(int x,int y){
 
 int main()
 {
-     shag(23,2);
+   int a,b;
+   cin>>a>>b;
+   
+   if ( (a < 0) || (a > 24) || (b < 0) || (b > 26) || (maze[a][b] == '#') )
+   cout<<"False coordinates!\n";
+   else
+   {
+   shag(a, b);
+   if (n_exits == 0)
+   cout<<"No exit\n";
+   }
+   
 }
